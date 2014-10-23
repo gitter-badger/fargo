@@ -1,0 +1,15 @@
+{
+  "name": "farstad",
+  "version": "0.0.0",
+  "authors": [
+    "Ben <ben@benripley.uk>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.3.0",
+    "angular-ui-router": "~0.2.11",
+    "angular-cookies": "~1.3.0",
+    "lodash": "~2.4.1",
+    "bootstrap-stylus": "~3.2.0"
+  }
+}

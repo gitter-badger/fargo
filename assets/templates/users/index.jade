@@ -1,0 +1,9 @@
+h1 Users
+
+table.table
+  tbody
+    tr(ng-repeat="item in users | orderBy: 'lastName'")
+      td(ng-bind="item.displayName")
+      td(ng-bind="item.username")
+      td(ng-bind="item.email")
+      td(ng-bind="item.role")

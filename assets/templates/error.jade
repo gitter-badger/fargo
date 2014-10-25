@@ -1,0 +1,20 @@
+div(ng-switch="status")
+
+  div(ng-switch-when="401")
+    h1 401 - Not signed in!
+    p You are not authenticated with the site.
+
+  div(ng-switch-when="403")
+    h1 403 - Forbidden!
+    p You don't have permission to see the page you're trying to reach.
+
+  div(ng-switch-when="404")
+    h1 404 - Not found!
+    p The page you were trying to reach does not exist.
+
+  div(ng-switch-default)
+    h1 Error!
+    p There was an error performing your request.
+
+p(ng-if="message", ng-bind="message")
+

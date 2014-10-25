@@ -9,6 +9,8 @@
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.http.html
  */
 
+var passport = require('passport');
+
 module.exports.http = {
 
   /****************************************************************************
@@ -21,7 +23,22 @@ module.exports.http = {
   *                                                                           *
   ****************************************************************************/
 
-  // middleware: {
+  middleware: {
+
+  /****************************************************************************
+   *                                                                           *
+   * custom middleware                                                         *
+   *                                                                           *
+   ****************************************************************************/
+
+    morgan: require('morgan')('dev'),
+    passportInit: passport.initialize(),
+    passportSession: passport.session(),
+    serveIndex: function(req, res) {
+      res.cookie('XSRF-TOKEN', res.locals._csrf);
+      req.user && res.cookie('SESSION-USER', JSON.stringify(req.user));
+      res.render("index");
+    },
 
   /***************************************************************************
   *                                                                          *
@@ -30,35 +47,23 @@ module.exports.http = {
   *                                                                          *
   ***************************************************************************/
 
-    // order: [
-    //   'startRequestTimer',
-    //   'cookieParser',
-    //   'session',
-    //   'myRequestLogger',
-    //   'bodyParser',
-    //   'handleBodyParserError',
-    //   'compress',
-    //   'methodOverride',
-    //   'poweredBy',
-    //   '$custom',
-    //   'router',
-    //   'www',
-    //   'favicon',
-    //   '404',
-    //   '500'
-    // ],
-
-  /****************************************************************************
-  *                                                                           *
-  * Example custom middleware; logs each request to the console.              *
-  *                                                                           *
-  ****************************************************************************/
-
-    // myRequestLogger: function (req, res, next) {
-    //     console.log("Requested :: ", req.method, req.url);
-    //     return next();
-    // }
-
+    order: [
+      'methodOverride',
+      'compress',
+      'www',
+      'morgan',
+      'bodyParser',
+      'handleBodyParserError',
+      'cookieParser',
+      'session',
+      'passportInit',
+      'passportSession',
+      '$custom',
+      'router',
+      'favicon',
+      'serveIndex',
+      '500'
+    ]
 
   /***************************************************************************
   *                                                                          *
@@ -71,7 +76,7 @@ module.exports.http = {
 
     // bodyParser: require('skipper')
 
-  // },
+  }
 
   /***************************************************************************
   *                                                                          *

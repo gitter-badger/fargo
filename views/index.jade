@@ -1,8 +1,9 @@
 doctype html
-html
+html(ng-app="fargo")
   head
     title= title
 
+    base(href="/", target="_blank")
     // Viewport mobile tag for sensible mobile support
     meta(name="viewport",content="width=device-width, initial-scale=1, maximum-scale=1")
 
@@ -10,14 +11,55 @@ html
     link(rel="stylesheet", href="/styles/styles.css")
     // STYLES END
 
-  body
-    p Fargo!
+  body(ng-cloak)
 
-    // The linker searches for this tag and adds js.  If there's no linker, we point to sails.io.js
+    // NAVBAR
+
+    .navbar.navbar-default.navbar-fixed-top(ng-controller="NavbarController", role="navigation")
+      .container
+        .navbar-header
+          button.navbar-toggle.collapse(type="button", ng-click="isCollapsed = !isCollapsed")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href="")= title
+
+        ul.nav.navbar-nav(ng-if="isAuthenticated", collapse="isCollapsed")
+          li(ui-sref-active="active"): a(ui-sref="dashboard") Dashboard
+          li(ui-sref-active="active"): a(ui-sref="users") Users
+
+        form.navbar-form.navbar-right(ng-if="!isAuthenticated")
+          .form-group
+            input.form-control(type="text", ng-model="data.username", placeholder="Username")
+          .form-group
+            input.form-control(type="password", ng-model="data.password", placeholder="Password")
+          | {{password}}
+          button.btn.btn-default(ng-click="login()") Sign in
+
+        ul.nav.navbar-nav.navbar-right(ng-if="isAuthenticated")
+          li: a(href="", ng-bind="currentUser.displayName")
+          li: a(ng-click="logout()") Sign Out
+
+    .container
+      ui-view
+
     // SCRIPTS
     script(src="/js/dependencies/sails.io.js")
+    script(src="/js/dependencies/lodash.js")
     script(src="/js/dependencies/angular.js")
     script(src="/js/dependencies/angular-cookies.js")
     script(src="/js/dependencies/angular-ui-router.js")
-    script(src="/js/dependencies/lodash.js")
+    script(src="/js/dependencies/restangular.js")
+    script(src="/js/app/app.js")
+    script(src="/js/app.templates.js")
+    script(src="/js/app/config/http.js")
+    script(src="/js/app/config/local.js")
+    script(src="/js/app/config/routes.js")
+    script(src="/js/app/controllers/ErrorController.js")
+    script(src="/js/app/controllers/NavbarController.js")
+    script(src="/js/app/controllers/UserIndexController.js")
+    script(src="/js/app/services/AuthService.js")
+    script(src="/js/app/services/UserService.js")
+    script(src="/js/authorisation.js")
     // SCRIPTS END

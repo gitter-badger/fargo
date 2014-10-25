@@ -32,8 +32,14 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'index'
+  'post /api/sessions': {
+    controller: 'SessionController',
+    action: 'login'
+  },
+
+  'delete /api/sessions': {
+    controller: 'SessionController',
+    action: 'logout'
   }
 
   /***************************************************************************

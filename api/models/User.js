@@ -44,13 +44,18 @@ module.exports = {
       type: 'string',
       required: true,
       minLength: 5,
-      maxLength: 50
+      maxLength: 100,
+      columnName: 'encrypted_password'
     },
 
     role: {
       type: 'string',
-      required: true,
       enum: auth.roles
+    },
+
+    online: {
+      type: 'boolean',
+      defaultsTo: false
     },
 
     displayName: function() {

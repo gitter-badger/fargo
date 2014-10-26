@@ -1,30 +1,46 @@
 /**
  * SessionsController
  *
- * @description :: Server-side logic for managing sessions
- * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 var passport = require('passport');
 
 module.exports = {
 
   login: function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-      if(err)
-        return next(err);
-      if(!user)
-        return res.status(422).send({message: info.message});
-      req.login(user, function(err) {
-        if(req.body.rememberme) {
-          req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 7 * 52;
-        }
-        err ? next(err) : res.status(200).send(user.toJSON());
+    var user;
+    async.series([
+      function(cb) {
+        passport.authenticate('local', function(err, user_, info) {
+          if(err) return cb(err);
+          if(!user_) return res.status(422).send({message: info.message});
+          user = user_;
+          cb();
+        })(req, res, next);
+      },
+      function(cb) {
+        req.login(user, cb);
+      },
+      function(cb) {
+        user.online = true;
+        user.save(cb);
+      }
+    ], function(err) {
+      if(err) return res.serverError(err);
+
+      User.publishUpdate(user.id, {
+        online: true,
+        id: user.id
       });
-    })(req, res, next);
+      res.ok(user.toJSON());
+    });
   },
 
   logout: function(req, res) {
-    req.logout();
-    res.status(200).end();
+    req.user.online = false;
+    req.user.save(function(err) {
+      if(err) return res.serverError(err);
+      req.logout();
+      res.ok();
+    });
   }
 };

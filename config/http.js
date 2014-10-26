@@ -9,7 +9,6 @@
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.http.html
  */
 
-var passport = require('passport');
 
 module.exports.http = {
 
@@ -32,13 +31,6 @@ module.exports.http = {
    ****************************************************************************/
 
     morgan: require('morgan')('dev'),
-    passportInit: passport.initialize(),
-    passportSession: passport.session(),
-    serveIndex: function(req, res) {
-      res.cookie('XSRF-TOKEN', res.locals._csrf);
-      req.user && res.cookie('SESSION-USER', JSON.stringify(req.user));
-      res.render("index");
-    },
 
   /***************************************************************************
   *                                                                          *
@@ -56,12 +48,9 @@ module.exports.http = {
       'handleBodyParserError',
       'cookieParser',
       'session',
-      'passportInit',
-      'passportSession',
       '$custom',
       'router',
       'favicon',
-      'serveIndex',
       '500'
     ]
 

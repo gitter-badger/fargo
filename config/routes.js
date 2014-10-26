@@ -40,16 +40,23 @@ module.exports.routes = {
   'delete /api/sessions': {
     controller: 'SessionController',
     action: 'logout'
-  }
+  },
 
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
   *                                                                          *
-  *  If a request to a URL doesn't match any of the custom routes above, it  *
+  * If a request to a URL doesn't match any of the custom routes above, it   *
   * is matched against Sails route blueprints. See `config/blueprints.js`    *
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
 
+  // serve non /api/ routes with index.html
+  // uses a controller action rather than a view so that policies can be used
+
+  'get (?!/api/)*': {
+    controller: 'ApplicationController',
+    action: 'index'
+  }
 };

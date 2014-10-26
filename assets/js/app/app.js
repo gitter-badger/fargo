@@ -1,7 +1,12 @@
 'use strict';
 
-angular.module('fargo', ['ngCookies', 'restangular', 'ui.router'])
-
+angular.module('fargo', [
+  'btford.socket-io',
+  'ngCookies',
+  'restangular',
+  'ui.bootstrap',
+  'ui.router'
+])
   .run(function($rootScope, $state, Auth) {
 
     $rootScope.$on('$stateChangeStart', function (e, toState) {

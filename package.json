@@ -2,7 +2,7 @@
   "name": "fargo",
   "private": true,
   "version": "0.0.0",
-  "description": "a Sails application",
+  "description": "fargo shipping application",
   "keywords": [],
   "dependencies": {
     "bcrypt": "~0.8.0",
@@ -37,8 +37,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Ben/fargo.git"
+    "url": "git://github.com/scarlz/fargo.git"
   },
-  "author": "Ben",
+  "author": "scarlz",
   "license": ""
 }

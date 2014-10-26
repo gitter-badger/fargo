@@ -14,6 +14,15 @@ angular.module('fargo')
   .config(function($stateProvider) {
 
     $stateProvider
+      .state('home', {
+        url: '/',
+        templateUrl: 'home.html',
+        data: {
+          permission: 'public'
+        }
+      });
+
+    $stateProvider
       .state('dashboard', {
         url: '/dashboard',
         templateUrl: 'dashboard.html',
@@ -29,11 +38,6 @@ angular.module('fargo')
         templateUrl: 'users/index.html',
         data: {
           permission: 'admin'
-        },
-        resolve: {
-          users: function(User) {
-            return User.getList();
-          }
         }
       });
 
@@ -49,5 +53,5 @@ angular.module('fargo')
         data: {
           permission: 'public'
         }
-      })
+      });
   });

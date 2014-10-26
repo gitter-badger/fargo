@@ -7,16 +7,15 @@
  * @docs        :: http://sailsjs.org/#!documentation/policies
  *
  */
+var passport = require('./passport');
+
 module.exports = function(req, res, next) {
-
-  // User is allowed, proceed to the next policy,
-  // or if this is the last policy, the controller
-
-  if (req.isAuthenticated()) {
-    return next();
-  }
-
-  // User is not allowed
-  // use custom response as sails does not provide method for unathenticated errors
-  return res.unauthenticated();
+  passport(req, res, function() {
+    // check against req.session.passport.user as req.isAuthenticated
+    // is not available to the mock request sent over sockets
+    if (req.user) {
+      return next();
+    }
+    return res.unauthenticated();
+  });
 };

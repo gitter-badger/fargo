@@ -48,7 +48,6 @@ module.exports.http = {
       'handleBodyParserError',
       'cookieParser',
       'session',
-      '$custom',
       'router',
       'favicon',
       '500'

@@ -19,28 +19,16 @@ module.exports = {
       },
       function(cb) {
         req.login(user, cb);
-      },
-      function(cb) {
-        user.online = true;
-        user.save(cb);
       }
     ], function(err) {
       if(err) return res.serverError(err);
 
-      User.publishUpdate(user.id, {
-        online: true,
-        id: user.id
-      });
       res.ok(user.toJSON());
     });
   },
 
   logout: function(req, res) {
-    req.user.online = false;
-    req.user.save(function(err) {
-      if(err) return res.serverError(err);
-      req.logout();
-      res.ok();
-    });
+    req.logout();
+    res.ok();
   }
 };

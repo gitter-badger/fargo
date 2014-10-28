@@ -1,9 +1,7 @@
 
 angular.module('fargo')
 
-  .controller('UserIndexController', function($scope, socket) {
+  .controller('UserIndexController', function($scope, User, users) {
 
-    socket.get('/api/users', function(users) {
-      $scope.users = users;
-    });
+    $scope.users = users;
   });

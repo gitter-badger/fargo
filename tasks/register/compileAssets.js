@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
 	grunt.registerTask('compileAssets', [
 		'clean:dev',
-    'bowercopy:dev',
+    'bowercopy',
     'jade:dev',
 		'ngtemplates:dev',
 		'stylus:dev',

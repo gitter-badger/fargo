@@ -3,7 +3,7 @@ angular.module('fargo')
 
   .controller('NavbarController', function($scope, $state, Auth) {
 
-    $scope.isCollapsed = true;
+    $scope.isCollapsed = false;
     $scope.isAuthenticated = !!Auth.user;
     $scope.currentUser = Auth.user;
     $scope.data = {};

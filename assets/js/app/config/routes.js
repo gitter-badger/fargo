@@ -38,7 +38,28 @@ angular.module('fargo')
         templateUrl: 'users/index.html',
         data: {
           permission: 'admin'
+        },
+        resolve: {
+          users: function(User) {
+            return User.getList();
+          }
         }
+      });
+
+    $stateProvider
+      .state('bookings', {
+        abstract: true,
+        template: '<ui-view>',
+        url: '/bookings',
+        data: {
+          permission: 'public'
+        }
+      })
+
+      .state('bookings.new', {
+        url: '/new',
+        templateUrl: 'bookings/new.html',
+        controller: 'BookingController'
       });
 
     $stateProvider

@@ -27,7 +27,12 @@ html(ng-app="fargo")
 
         ul.nav.navbar-nav(ng-if="isAuthenticated", collapse="isCollapsed")
           li(ui-sref-active="active"): a(ui-sref="dashboard") Dashboard
-          li(ui-sref-active="active"): a(ui-sref="users") Users
+          li(permission="admin", ui-sref-active="active"): a(ui-sref="users") Users
+          li(permission="admin", ui-sref-active="active"): a(ui-sref="bookings.new") Bookings
+
+        ul.nav.navbar-nav
+          li: a(ui-sref="home") Home
+          li: a(ui-sref="bookings.new") Bookings
 
         form.navbar-form.navbar-right(ng-if="!isAuthenticated")
           .form-group
@@ -51,22 +56,29 @@ html(ng-app="fargo")
     script(src="/js/dependencies/angular-cookies.js")
     script(src="/js/dependencies/angular-ui-router.js")
     script(src="/js/dependencies/restangular.js")
-    script(src="/js/dependencies/socket.js")
     script(src="/js/dependencies/ui-bootstrap.js")
     script(src="/js/app/app.js")
     script(src="/js/app.templates.js")
+    script(src="/js/app/config/datepicker.js")
     script(src="/js/app/config/http.js")
     script(src="/js/app/config/local.js")
+    script(src="/js/app/config/restangular.js")
     script(src="/js/app/config/routes.js")
     script(src="/js/app/config/socket.js")
+    script(src="/js/app/controllers/BookingController.js")
     script(src="/js/app/controllers/ErrorController.js")
+    script(src="/js/app/controllers/LookupController.js")
     script(src="/js/app/controllers/NavbarController.js")
     script(src="/js/app/controllers/UserIndexController.js")
+    script(src="/js/app/directives/permission.js")
+    script(src="/js/app/modules/bootstrap.js")
+    script(src="/js/app/modules/flash.js")
+    script(src="/js/app/services/$socket.js")
     script(src="/js/app/services/Auth.js")
-    script(src="/js/app/services/AuthService.js")
-    script(src="/js/app/services/SocketService.js")
+    script(src="/js/app/services/Booking.js")
+    script(src="/js/app/services/Client.js")
     script(src="/js/app/services/User.js")
-    script(src="/js/app/services/UserService.js")
-    script(src="/js/app/services/socket.js")
+    script(src="/js/app/services/dataService.js")
     script(src="/js/authorisation.js")
+    script(src="/js/labels.js")
     // SCRIPTS END

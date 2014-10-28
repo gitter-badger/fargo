@@ -4,7 +4,7 @@ angular.module('fargo')
   .factory('Auth', function(Restangular, $window, $cookies) {
 
     var route  = Restangular.all('sessions'),
-        config = $window.authorisation,
+        config = $window.common.authorisation,
         Auth   = {},
         user;
 
@@ -20,7 +20,7 @@ angular.module('fargo')
 
       authorize: function(permission) {
         var role = Auth.user && Auth.user.role;
-        return $window.authorisation.checkAccess(role, permission);
+        return config.checkAccess(role, permission);
       },
 
       login: function(username, password) {

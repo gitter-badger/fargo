@@ -55,8 +55,10 @@ module.exports.routes = {
   // serve non /api/ routes with index.html
   // uses a controller action rather than a view so that policies can be used
 
-  'get (?!/api/)*': {
+  '/*' : {
     controller: 'ApplicationController',
-    action: 'index'
+    action: 'index',
+    skipAssets: true,
+    skipRegex: /^\/api\/.*$/
   }
 };

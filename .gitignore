@@ -22,9 +22,6 @@
 
 
 
-
-
-
 ################################################
 # Local Configuration
 #
@@ -116,6 +113,7 @@ npm-debug.log
 
 *~
 *#
+test.js
 .DS_STORE
 .netbeans
 nbproject

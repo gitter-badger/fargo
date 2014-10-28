@@ -1,0 +1,69 @@
+h1 Create Booking
+
+.row
+  .col-sm-6
+
+    form(name="bookingForm", ng-submit="submit()")
+
+      form-group(label="Customer")
+        input(
+          type="text",
+          ng-model="booking.customer",
+          typeahead="customer as customer.name for customer in lookupCustomers($viewValue)",
+          typeahead-loading="loadingCustomers",
+          typeahead-wait-ms="100",
+          typeahead-min-length="2",
+          typeahead-editable="false",
+          ng-required="true"
+        )
+      p(ng-if="loadingCustomers") Loading...
+
+      form-group(label="Departure Date")
+        date-input(model="booking.departureDate", required="true")
+
+      form-group(label="Depart From")
+        input(
+          type="text",
+          ng-model="booking.departurePort",
+          typeahead="port as port.name for port in lookupPorts($viewValue)",
+          typeahead-loading="loadingDeparturePorts",
+          typeahead-wait-ms="200",
+          typeahead-min-length="2",
+          typeahead-editable="false",
+          ng-required="true"
+        )
+      p(ng-if="loadingDeparturePorts") Loading...
+
+      form-group(label="Destination")
+        input(
+          type="text",
+          ng-model="booking.destinationPort",
+          typeahead="port as port.name for port in lookupPorts($viewValue)",
+          typeahead-loading="loadingDestinationPorts",
+          typeahead-wait-ms="200",
+          typeahead-min-length="2",
+          typeahead-editable="false",
+          ng-required="true"
+        )
+      p(ng-if="loadingDestinationPorts") Loading...
+
+      form-group(label="Requested By")
+        input(
+          type="text",
+          ng-model="booking.requestedBy",
+          typeahead="user as user.displayName for user in lookupUsers($viewValue)",
+          typeahead-loading="loadingUsers",
+          typeahead-wait-ms="100",
+          typeahead-min-length="2",
+          typeahead-editable="false",
+          ng-required="true"
+        )
+      p(ng-if="loadingUsers") Loading...
+
+      .form-actions
+        button.btn.btn-primary Save
+
+
+  .col-sm-6
+    .well(ng-if="booking.customer")
+      h3(ng-bind="booking.customer.name")

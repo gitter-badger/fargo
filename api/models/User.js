@@ -7,56 +7,14 @@ var bcrypt = require('bcrypt');
 var auth   = require('../../common/authorisation');
 
 module.exports = {
-
   schema: true,
-
   attributes: {
-
-    firstName: {
-      type: 'string',
-      required: true,
-      minLength: 3,
-      maxLength: 30
-    },
-
-    lastName : {
-      type: 'string',
-      required: true,
-      minLength: 3,
-      maxLength: 30
-    },
-
-    username: {
-      type: 'string',
-      required: true,
-      unique: true,
-      minLength: 3,
-      maxLength: 30
-    },
-
-    email:{
-      type: 'email',
-      required: true,
-      unique: true
-    },
-
-    password:{
-      type: 'string',
-      required: true,
-      minLength: 5,
-      maxLength: 100,
-      columnName: 'encrypted_password'
-    },
-
-    role: {
-      type: 'string',
-      enum: auth.roles
-    },
-
-    online: {
-      type: 'boolean',
-      defaultsTo: false
-    },
+    firstName: {type: 'string', required: true, minLength: 3, maxLength: 30},
+    lastName : {type: 'string', required: true, minLength: 3, maxLength: 30},
+    username:  {type: 'string', required: true, unique: true, minLength: 3, maxLength: 30},
+    email:     {type: 'email',  required: true, unique: true},
+    password:  {type: 'string', required: true, minLength: 5, maxLength: 100, columnName: 'encrypted_password'},
+    role:      {type: 'string', enum: auth.roles},
 
     displayName: function() {
       return this.firstName + ' ' + this.lastName;

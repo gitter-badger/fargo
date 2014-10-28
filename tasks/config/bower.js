@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
 
   grunt.config.set('bowercopy', {
-    dev: {
+    js: {
       options: {
         destPrefix: '.tmp/public/js/dependencies'
       },
@@ -12,9 +12,12 @@ module.exports = function(grunt) {
         'angular-ui-router.js': 'angular-ui-router/release/angular-ui-router.js',
         'lodash.js':            'lodash/dist/lodash.js',
         'restangular.js':       'restangular/dist/restangular.js',
-        'socket.js':            'angular-socket-io/socket.js',
-        'ui-bootstrap.js':      'angular-bootstrap/ui-bootstrap-tpls.js'
+        'ui-bootstrap.js':      'angular-bootstrap/ui-bootstrap-tpls.js',
       }
+    },
+    fonts: {
+      src:  'bootstrap-stylus/fonts/**/*',
+      dest: '.tmp/public/fonts'
     }
   });
 

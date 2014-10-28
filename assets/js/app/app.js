@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('fargo', [
-  'btford.socket-io',
+  'fargo.bootstrap',
+  'fargo.flash',
   'ngCookies',
   'restangular',
   'ui.bootstrap',

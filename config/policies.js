@@ -20,7 +20,7 @@
 module.exports.policies = {
 
   '*':         'passport',
-  'user':      'authenticated',
+//  'user':      'authenticated',
   'dashboard': 'authenticated'
 
 };

@@ -1,3 +1,5 @@
+typeof module === 'undefined' && !window.common && (window.common = {});
+
 (function(exports) {
 
   var DEFAULT_ROLE = 'guest';
@@ -43,4 +45,4 @@
     return roles[role || DEFAULT_ROLE].allPermissions.indexOf(permission) > -1;
   };
 
-})(typeof module !== 'undefined' && module.exports ? module.exports : window.authorisation = {});
+})(typeof module !== 'undefined' && module.exports ? module.exports : window.common.authorisation = {});

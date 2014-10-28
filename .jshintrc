@@ -20,5 +20,7 @@
   "undef": false,
   "unused": true,
   "validthis": true,
-  "globals": true
+  "globals": {
+    "angular": true
+  }
 }

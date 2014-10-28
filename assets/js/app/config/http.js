@@ -1,10 +1,7 @@
-'use strict';
 
 angular.module('fargo')
 
-  .config(function($httpProvider, RestangularProvider, config) {
-
-    RestangularProvider.setBaseUrl(config.API_PATH);
+  .config(function($httpProvider) {
 
     $httpProvider.interceptors.push(function ($q, $injector) {
       return {

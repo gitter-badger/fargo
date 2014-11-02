@@ -24,28 +24,28 @@ h1 Create Booking
       form-group(label="Depart From")
         input(
           type="text",
-          ng-model="booking.departurePort",
-          typeahead="port as port.name for port in lookupPorts($viewValue)",
-          typeahead-loading="loadingDeparturePorts",
-          typeahead-wait-ms="200",
+          ng-model="booking.origin",
+          typeahead="location as location.displayName for location in lookupLocations($viewValue)",
+          typeahead-loading="loadingOriginLocations",
+          typeahead-wait-ms="100",
           typeahead-min-length="2",
           typeahead-editable="false",
           ng-required="true"
         )
-      p(ng-if="loadingDeparturePorts") Loading...
+      p(ng-if="loadingOriginLocations") Loading...
 
       form-group(label="Destination")
         input(
           type="text",
-          ng-model="booking.destinationPort",
-          typeahead="port as port.name for port in lookupPorts($viewValue)",
-          typeahead-loading="loadingDestinationPorts",
-          typeahead-wait-ms="200",
+          ng-model="booking.destination",
+          typeahead="location as location.displayName for location in lookupLocations($viewValue)",
+          typeahead-loading="loadingDestinationLocations",
+          typeahead-wait-ms="100",
           typeahead-min-length="2",
           typeahead-editable="false",
           ng-required="true"
         )
-      p(ng-if="loadingDestinationPorts") Loading...
+      p(ng-if="loadingDestinationLocations") Loading...
 
       form-group(label="Requested By")
         input(
@@ -59,6 +59,10 @@ h1 Create Booking
           ng-required="true"
         )
       p(ng-if="loadingUsers") Loading...
+
+      .input-group
+
+
 
       .form-actions
         button.btn.btn-primary Save

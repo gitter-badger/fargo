@@ -5,6 +5,7 @@ angular.module('fargo', [
   'fargo.flash',
   'ngCookies',
   'restangular',
+  'restmod',
   'ui.bootstrap',
   'ui.router'
 ])

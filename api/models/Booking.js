@@ -9,14 +9,18 @@
 module.exports = {
   schema: true,
   attributes: {
-    id:              {type: 'integer', primaryKey: true, autoIncrement: true},
-    customer:        {type: 'integer', model: 'client', columnNAme: 'customerId', required: true},
-    departureDate:   {type: 'date', required: true},
-    departurePort:   {type: 'json', required: true},
-    destinationPort: {type: 'json', required: true},
-    requestedDate:   {type: 'date'},
-    requestedBy:     {type: 'integer', model: 'user', columnName: 'requestedById', required: true},
-    notes:           {type: 'string'},
-    cargo:           {collection: 'cargo', via: 'booking'}
+    requestedBy:      {model: 'user',     required: true},
+    customer:         {model: 'client',   required: true},
+    origin:           {model: 'location', required: true},
+    destination:      {model: 'location', required: true},
+    departureDate:    {type: 'date',      required: true},
+    requestedDate:    {type: 'date'},
+    notes:            {type: 'string'},
+    reference:        {type: 'string'},
+    cargos:           {collection: 'cargo', via: 'booking'},
+    transfers:        {collection: 'transfer', via: 'booking'},
+    shippingRequests: {collection: 'shippingrequest', via: 'booking'},
+    containers:       {collection: 'container', via: 'booking'},
+    logs:             {collection: 'logs', via: 'booking'}
   }
 };

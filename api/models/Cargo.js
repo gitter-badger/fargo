@@ -5,14 +5,19 @@
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 
+
 module.exports = {
   schema: true,
   attributes: {
-    type:        {type: 'string',  required: true},
-    quantity:    {type: 'integer', required: true},
-    description: {type: 'string',  required: true},
-    hsCode:      {type: 'string',  required: true},
-    estWeight:   {type: 'integer', required: true}
+    booking:     {model: 'booking'},
+    producer:    {model: 'client',    required: true},
+    commodity:   {model: 'commodity', required: true},
+    type:        {type:  'string',    required: true},
+    quantity:    {type:  'integer',   required: true},
+    description: {type:  'string',    required: true},
+    weight:      {type:  'integer',   required: true},
+    minTemp:     {type:  'integer'},
+    maxTemp:     {type:  'integer'},
+    marking:     {type:  'text'}
   }
 };
-

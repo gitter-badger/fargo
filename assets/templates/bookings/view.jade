@@ -1,0 +1,181 @@
+h1 Booking!
+
+table
+  tbody
+    tr
+      td: strong Customer
+      td(ng-bind="booking.customer.name")
+
+    tr
+      td: strong Departure Date
+      td(ng-bind="booking.departureDate | date: 'longDate'")
+
+    tr
+      td: strong Origin
+      td(ng-bind="booking.origin.name")
+
+    tr
+      td: strong Destination
+      td(ng-bind="booking.destination.name")
+
+hr
+
+h3 Items for shipment
+
+
+.row
+  .col-xs-4(ng-controller="CargoController")
+    form.form-horizontal(name="cargoForm", ng-submit="submit()")
+      form-group(label="Commodity")
+        input(
+          type="text",
+          ng-model="cargo.commodity",
+          typeahead="commodity as commodity.displayName for commodity in lookupCommodities($viewValue)",
+          typeahead-loading="loadingCommodities",
+          typeahead-wait-ms="100",
+          typeahead-min-length="2",
+          typeahead-editable="false",
+          ng-required="true"
+        )
+      form-group(label="type")
+        input(
+          type="text",
+          ng-model="cargo.type",
+          typeahead="type for type in types | filter: $viewValue",
+          typeahead-editable="false",
+          ng-required="true"
+        )
+      form-group(label="description")
+        input(type="text", ng-model="cargo.description")
+      form-group(label="quantity")
+        input(type="text", ng-model="cargo.quantity")
+      form-group(label="weight")
+        input(type="text", ng-model="cargo.weight")
+      form-group(label="producer")
+        input(
+          type="text",
+          ng-model="cargo.producer",
+          typeahead="producer as producer.name for producer in lookupProducers($viewValue)",
+          typeahead-loading="loadingProducers",
+          typeahead-wait-ms="100",
+          typeahead-min-length="2",
+          typeahead-editable="false",
+          ng-required="true"
+        )
+      .form-actions
+        button.btn.btn-primary.pull-right ADD CARGO
+  .col-xs-8
+    table
+      thead
+        th Commodity
+        th Total
+        th Description
+        th Producer
+        th Weight
+        th Marking
+      tbody
+        tr(ng-repeat="item in booking.cargos")
+          td(ng-bind="item.commodity.code")
+          td(ng-bind="item.quantity + ' ' + item.type")
+          td(ng-bind="item.description")
+          td(ng-bind="item.producer.name")
+          td(ng-bind="item.weight")
+
+hr
+
+
+h3 Trucking Requirements
+
+alert(ng-if="", type="warning") You have items requiring transport to the terminal.
+
+.row(ng-controller="TransferController")
+  .col-xs-8
+    table
+      thead
+        th Commodity
+        th Total
+        th Description
+        th Producer
+        th Weight
+        th Marking
+      tbody
+        tr(ng-repeat="item in booking.cargos", ng-click="toggleSelected(item)", ng-class="{selected: transfer.cargos.indexOf(item) > -1}")
+          td(ng-bind="item.commodity.code")
+          td(ng-bind="item.quantity + ' ' + item.type")
+          td(ng-bind="item.description")
+          td(ng-bind="item.producer.name")
+          td(ng-bind="item.weight")
+
+  .col-xs-4
+    form.form-horizontal(name="cargoForm", ng-submit="submit()")
+      form-group(label="company")
+        input(
+          type="text",
+          ng-model="transfer.courier",
+          typeahead="trucker as trucker.name for trucker in lookupTruckers($viewValue)",
+          typeahead-wait-ms="100",
+          typeahead-min-length="2",
+          typeahead-editable="false",
+          ng-required="true"
+        )
+      .form-actions
+        button.btn.btn-primary.pull-right SEND REQUEST
+
+
+// h3 Shipping Requirements
+
+// .row
+  .col-xs-4(ng-controller="CargoController")
+    form.form-horizontal(name="cargoForm", ng-submit="submit()")
+      form-group(label="Commodity")
+        input(
+          type="text",
+          ng-model="cargo.commodity",
+          typeahead="commodity as commodity.displayName for commodity in lookupCommodities($viewValue)",
+          typeahead-loading="loadingCommodities",
+          typeahead-wait-ms="100",
+          typeahead-min-length="2",
+          typeahead-editable="false",
+          ng-required="true"
+        )
+      form-group(label="type")
+        input(
+          type="text",
+          ng-model="cargo.type",
+          typeahead="type for type in types | filter: $viewValue",
+          typeahead-editable="false",
+          ng-required="true"
+        )
+      form-group(label="quantity")
+        input(type="text", ng-model="cargo.quantity")
+      form-group(label="weight")
+        input(type="text", ng-model="cargo.weight")
+      form-group(label="producer")
+        input(
+          type="text",
+          ng-model="cargo.producer",
+          typeahead="producer as producer.name for producer in lookupProducers($viewValue)",
+          typeahead-loading="loadingProducers",
+          typeahead-wait-ms="100",
+          typeahead-min-length="2",
+          typeahead-editable="false",
+          ng-required="true"
+        )
+      .form-actions
+        button.btn.btn-primary.pull-right ADD CARGO
+  .col-xs-8
+    table
+      thead
+        th Commodity
+        th Total
+        th Description
+        th Producer
+        th Weight
+        th Marking
+      tbody
+        tr(ng-repeat="item in booking.cargos")
+          td(ng-bind="item.commodity.code")
+          td(ng-bind="item.quantity + ' ' + item.type")
+          td(ng-bind="item.description")
+          td(ng-bind="item.producer.name")
+          td(ng-bind="item.weight")

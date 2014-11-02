@@ -11,43 +11,67 @@
 
 module.exports.bootstrap = function(cb) {
 
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
+  var arr = [];
 
-  async.series([
+  //arr.push(Location.import);
+  //arr.push(Commodity.import);
+  //
+  //arr.push(function createUsers(cb) {
+  //  User.create([{
+  //    firstName: 'Captain',
+  //    lastName:  'Biff',
+  //    username:  'biff',
+  //    email:     'captain@biff.no',
+  //    password:  'admin',
+  //    role:      'admin'
+  //  }, {
+  //    firstName: 'Akay',
+  //    lastName:  'Akbiyik',
+  //    username:  'akay',
+  //    email:     'akay@akbiyik.tr',
+  //    password:  'admin',
+  //    role:      'admin'
+  //  }, {
+  //    firstName: 'Creasey',
+  //    lastName:  'Bear',
+  //    username:  'cbear',
+  //    email:     'creasey@bear.com',
+  //    password:  'admin',
+  //    role:      'user'
+  //  }], cb);
+  //});
+  //
+  //arr.push(function createClients(cb) {
+  //  Client.create([{
+  //    name: 'West Norway AS'
+  //  }, {
+  //    name: 'Møre Codfish AS'
+  //  }, {
+  //    name: 'Hoel Transport AS',
+  //    role: 'trucking'
+  //  }, {
+  //    name: 'Hapag Lloyd',
+  //    role: 'shipping'
+  //  }, {
+  //    name: 'Hevold Shipping AS',
+  //    role: 'shipping'
+  //  }, {
+  //    name: 'Enger Transport AS',
+  //    role: 'containerTrucking'
+  //  }, {
+  //    name: 'Rolls Royce',
+  //    role: 'producer'
+  //  }, {
+  //    name: 'Brødrene Sperre',
+  //    role: 'producer'
+  //  }, {
+  //    name: 'Fjordlaks',
+  //    role: 'producer'
+  //  }, {
+  //    name: 'Gustav Stokke',
+  //    role: 'producer'
+  //  }], cb);
+  //});
 
-    function(cb) {
-      User.create([{
-        firstName: 'Captain',
-        lastName:  'Biff',
-        username:  'biff',
-        email:     'captain@biff.no',
-        password:  'admin',
-        role:      'admin'
-      }, {
-        firstName: 'Akay',
-        lastName:  'Akbiyik',
-        username:  'akay',
-        email:     'akay@akbiyik.tr',
-        password:  'admin',
-        role:      'admin'
-      }, {
-        firstName: 'Creasey',
-        lastName:  'Bear',
-        username:  'cbear',
-        email:     'creasey@bear.com',
-        password:  'admin',
-        role:      'user'
-      }], cb);
-    },
-
-    function(cb) {
-      Client.create([{
-        name: 'Goat Inc'
-      }, {
-        name: 'Hapag Lloyd',
-        labels: [{label: 'shipper'}]
-      }], cb);
-    }
-  ],cb);
+  async.parallel(arr, cb);
 };

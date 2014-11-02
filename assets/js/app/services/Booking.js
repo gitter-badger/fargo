@@ -2,7 +2,9 @@
 
 angular.module('fargo')
 
-  .factory('Booking', function(Restangular) {
+  .factory('Booking', function(restmod) {
 
-    return Restangular.all('bookings');
+    return restmod.model('/bookings').mix({
+      cargos: {hasMany: 'Cargo'}
+    });
   });

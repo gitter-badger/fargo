@@ -1,6 +1,7 @@
 /**
 * User.js
-*
+* @description :: TODO: You might write a short summary of how this model works and what it represents here.
+* @docs        :: http://sailsjs.org/#!documentation/models
 */
 
 var bcrypt = require('bcrypt');
@@ -13,26 +14,21 @@ module.exports = {
     lastName : {type: 'string', required: true, minLength: 3, maxLength: 30},
     username:  {type: 'string', required: true, unique: true, minLength: 3, maxLength: 30},
     email:     {type: 'email',  required: true, unique: true},
-    password:  {type: 'string', required: true, minLength: 5, maxLength: 100, columnName: 'encrypted_password'},
+    password:  {type: 'string', required: true, protected: true, minLength: 5, maxLength: 100, columnName: 'encrypted_password'},
     role:      {type: 'string', enum: auth.roles},
-
-    displayName: function() {
-      return this.firstName + ' ' + this.lastName;
-    },
 
     hasPermission: function(permission) {
       return auth.checkAccess(this.role, permission);
     },
 
-    toJSON: function() {
-      var obj = this.toObject();
-      delete obj.password;
-      obj.displayName = this.firstName + ' ' + this.lastName;
-      return obj;
-    },
-
     validatePassword: function (password) {
       return bcrypt.compareSync(password, this.password);
+    },
+
+    toJSON: function() {
+      var obj = this.toObject();
+      obj.displayName = this.firstName + ' ' + this.lastName;
+      return obj;
     }
   },
 
@@ -55,5 +51,3 @@ module.exports = {
     } else cb();
   }
 };
-
-

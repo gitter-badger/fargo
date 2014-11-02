@@ -1,9 +1,9 @@
 
 angular.module('fargo')
 
-  .factory('Auth', function(Restangular, $window, $cookies) {
+  .factory('Auth', function($window, $cookies, restmod) {
 
-    var route  = Restangular.all('sessions'),
+    var model  = restmod.model('/sessions'),
         config = $window.common.authorisation,
         Auth   = {},
         user;
@@ -24,17 +24,17 @@ angular.module('fargo')
       },
 
       login: function(username, password) {
-        return route.post({
+        return model.$create({
           username: username,
           password: password
-        }).then(function(user) {
+        }).$then(function(user) {
           Auth.user = user;
           return user;
         });
       },
 
       logout: function() {
-        return route.remove().then(function() {
+        return model.$destroy().$then(function() {
           delete Auth.user;
         });
       }

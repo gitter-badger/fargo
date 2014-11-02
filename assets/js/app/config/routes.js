@@ -60,6 +60,17 @@ angular.module('fargo')
         url: '/new',
         templateUrl: 'bookings/new.html',
         controller: 'BookingController'
+      })
+
+      .state('bookings.view', {
+        url: '/:id',
+        templateUrl: 'bookings/view.html',
+        controller: 'BookingViewController',
+        resolve: {
+          booking: function($stateParams, Booking) {
+            return Booking.$find($stateParams.id).$asPromise();
+          }
+        }
       });
 
     $stateProvider

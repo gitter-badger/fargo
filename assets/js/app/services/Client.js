@@ -1,22 +1,25 @@
 
-
 angular.module('fargo')
 
-  .factory('Client', function(Restangular) {
+  .factory('Client', function(restmod) {
 
-    var Client = Restangular.all('clients');
-
-    Client.findByTerm = function(term) {
-      return this.getList({
-        where: {
-          name: {contains: term}
+    return restmod.model('/clients').mix({
+      $extend: {
+        Model: {
+          $searchByTerm: function (term, roles) {
+            roles = [].concat(roles || []);
+            var options = {
+              where: {
+                name: {contains: term}
+              },
+              sort: 'name'
+            };
+            if(roles.length) {
+              options.where.role = roles;
+            }
+            return this.$search(options);
+          }
         }
-      }).then(function(items) {
-        return items.map(function(item) {
-          return item.plain();
-        });
-      });
-    };
-
-    return Client;
+      }
+    });
   });

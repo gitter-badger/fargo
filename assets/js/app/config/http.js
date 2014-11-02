@@ -8,6 +8,10 @@ angular.module('fargo')
         responseError: function (response) {
           var $state = $injector.get('$state');
 
+          if(response.status === 400) {
+            console.log(response.data);
+          }
+
           $state.go('error', {
             status:  response.status,
             message: response.data

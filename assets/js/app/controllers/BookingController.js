@@ -1,29 +1,25 @@
 
 angular.module('fargo')
 
-  .controller('BookingController', function ($scope, Booking, Client, User, dataService) {
+  .controller('BookingController', function ($scope, $state, Booking, Client, User, Location) {
 
     $scope.booking = {};
 
     $scope.lookupCustomers = function(term) {
-      return Client.findByTerm(term);
+      return Client.$searchByTerm(term).$asPromise();
     };
 
-    $scope.lookupPorts = function (term) {
-      return dataService.findPortsByTerm(term);
+    $scope.lookupLocations = function (term) {
+      return Location.$searchByTerm(term).$asPromise();
     };
 
     $scope.lookupUsers = function(term) {
-      return User.findByTerm(term);
+      return User.$searchByTerm(term).$asPromise();
     };
 
     $scope.submit = function() {
-      var booking = angular.copy($scope.booking);
-      booking.customer    = booking.customer.id;
-      booking.requestedBy = booking.requestedBy.id;
-
-      Booking.post(booking).then(function(res) {
-        console.log(res);
+      Booking.$create($scope.booking).$asPromise().then(function(booking) {
+        $state.go('bookings.view', {id: booking.id});
       });
     };
   });

@@ -89,6 +89,25 @@ h3 Trucking Requirements
 alert(ng-if="", type="warning") You have items requiring transport to the terminal.
 
 .row(ng-controller="TransferController")
+  .col-xs-4
+    tabset
+      tab(heading="LCL")
+        form.form-horizontal(name="cargoForm", ng-submit="submit()")
+          form-group(label="company")
+            input(
+            type="text",
+            ng-model="transfer.courier",
+            typeahead="trucker as trucker.name for trucker in lookupTruckers($viewValue)",
+            typeahead-wait-ms="100",
+            typeahead-min-length="2",
+            typeahead-editable="false",
+            ng-required="true"
+            )
+          .form-actions
+            button.btn.btn-primary.pull-right SEND REQUEST
+      tab(heading="FCL")
+        p(ng-if="!booking.containers.length") There are no containers yet available for transport.
+
   .col-xs-8
     table
       thead
@@ -106,20 +125,37 @@ alert(ng-if="", type="warning") You have items requiring transport to the termin
           td(ng-bind="item.producer.name")
           td(ng-bind="item.weight")
 
+
+hr
+
+h3 Containers
+
+.row(ng-controller="ContainerController")
   .col-xs-4
     form.form-horizontal(name="cargoForm", ng-submit="submit()")
-      form-group(label="company")
+      form-group(label="number")
+        input(type="text", ng-model="container.label")
+      form-group(label="container type")
         input(
           type="text",
-          ng-model="transfer.courier",
-          typeahead="trucker as trucker.name for trucker in lookupTruckers($viewValue)",
+          ng-model="container.type",
+          typeahead="type as type.description for type in lookupTypes($viewValue)",
           typeahead-wait-ms="100",
           typeahead-min-length="2",
           typeahead-editable="false",
           ng-required="true"
         )
       .form-actions
-        button.btn.btn-primary.pull-right SEND REQUEST
+        button.btn.btn-primary.pull-right ADD CONTAINER
+  .col-xs-8
+    ul
+      li(ng-repeat="container in booking.containers")
+        | {{container.label}}
+        | {{container.type.description}}
+
+
+
+
 
 
 // h3 Shipping Requirements

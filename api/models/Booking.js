@@ -21,6 +21,6 @@ module.exports = {
     transfers:        {collection: 'transfer', via: 'booking'},
     shippingRequests: {collection: 'shippingrequest', via: 'booking'},
     containers:       {collection: 'container', via: 'booking'},
-    logs:             {collection: 'logs', via: 'booking'}
+    logs:             {collection: 'log', via: 'booking'}
   }
 };

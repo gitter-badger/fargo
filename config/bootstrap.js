@@ -12,9 +12,16 @@
 module.exports.bootstrap = function(cb) {
 
   var arr = [];
-
-  //arr.push(Location.import);
-  //arr.push(Commodity.import);
+  //
+  //arr.push(function(cb) {
+  //  Location.import(__dirname + '/../csv/unlocode-dev.csv', cb);
+  //});
+  //arr.push(function(cb) {
+  //  ContainerType.import(__dirname + '/../csv/containers-dev.csv', cb);
+  //});
+  //arr.push(function(cb) {
+  //  Commodity.import(__dirname + '/../csv/commodity-dev.csv', cb);
+  //});
   //
   //arr.push(function createUsers(cb) {
   //  User.create([{

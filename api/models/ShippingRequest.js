@@ -6,9 +6,9 @@
 */
 
 module.exports = {
-
+  schema: true,
   attributes: {
     booking: {model: 'booking', required: true},
-    cargos:  {collection: 'shippingrequestcargo', required: true}
+    cargos:  {collection: 'shippingrequestcargo', via: 'request', required: true}
   }
 };

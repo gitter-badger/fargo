@@ -1,5 +1,5 @@
 /**
-* Commodity.js
+* ContainerType.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -13,43 +13,32 @@ module.exports = {
   autoCreatedAt: false,
   autoUpdatedAt: false,
   attributes: {
-    code:        {index: true, required: true},
-    description: {index: true, required: true},
-    toJSON: function() {
-      var obj = this.toObject();
-      obj.displayName = this.code + ' | ' + this.description;
-      return obj;
-    }
+    code:        {type: 'string', required: true},
+    description: {type: 'string', required: true}
   },
 
   'import': function(file, cb) {
-    var parser  = csv.parse();
-    var tariffs = [];
+    var parser = csv.parse();
+    var types  = [];
 
     parser
       .on('readable', function () {
-        var line, codes, length, i;
+        var line;
         while (line = parser.read()) {
-          codes  = line[1].split(',');
-          length = codes.length;
-
-          for(i = 0; i < length; ++i) {
-            tariffs.push({
-              description: line[0],
-              code: codes[i].trim()
-            });
-          }
+          types.push({
+            code: line[0],
+            description: line[1]
+          });
         }
       })
       .on('error', function (err) {
         cb(err.message);
       })
       .on('finish', function() {
-        Commodity.create(tariffs, cb);
+        ContainerType.create(types, cb);
       });
 
     fs.createReadStream(file).pipe(parser);
   }
 };
-
 

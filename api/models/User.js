@@ -14,7 +14,7 @@ module.exports = {
     lastName : {type: 'string', required: true, minLength: 3, maxLength: 30},
     username:  {type: 'string', required: true, unique: true, minLength: 3, maxLength: 30},
     email:     {type: 'email',  required: true, unique: true},
-    password:  {type: 'string', required: true, protected: true, minLength: 5, maxLength: 100, columnName: 'encrypted_password'},
+    password:  {type: 'string', required: true, minLength: 5, maxLength: 100, columnName: 'encrypted_password'},
     role:      {type: 'string', enum: auth.roles},
 
     hasPermission: function(permission) {
@@ -28,6 +28,7 @@ module.exports = {
     toJSON: function() {
       var obj = this.toObject();
       obj.displayName = this.firstName + ' ' + this.lastName;
+      delete obj.password;
       return obj;
     }
   },

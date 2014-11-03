@@ -31,12 +31,6 @@ module.exports.http = {
    ****************************************************************************/
 
     morgan: require('morgan')('dev'),
-    inspect: function(req, res, next) {
-      if(req.body) {
-        console.log(req.body);
-      }
-      next();
-    },
 
   /***************************************************************************
   *                                                                          *
@@ -46,7 +40,6 @@ module.exports.http = {
   ***************************************************************************/
 
     order: [
-      'inspect',
       'methodOverride',
       'compress',
       'www',

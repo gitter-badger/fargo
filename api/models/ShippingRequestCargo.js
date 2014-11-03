@@ -6,11 +6,11 @@
 */
 
 module.exports = {
-
+  schema: true,
   attributes: {
-    container: {type: 'string', required: true},
-    quantity:  {type: 'integer', required: true},
-    transfer:  {model: 'shippingrequest', required: true},
-    cargo:     {model: 'cargo', required: true}
+    container: {model: 'containertype', required: true},
+    request:   {model: 'shippingrequest', required: true},
+    cargo:     {model: 'cargo', required: true},
+    quantity:  {type:  'integer', required: true}
   }
 };

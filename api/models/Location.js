@@ -21,7 +21,7 @@ module.exports = {
     }
   },
 
-  'import': function(cb) {
+  'import': function(file, cb) {
     var locations = [];
     var countries = {};
     var locParser = csv.parse();
@@ -38,7 +38,7 @@ module.exports = {
         cb(err.message);
       })
       .on('finish', function () {
-        fs.createReadStream(__dirname + '/../../csv/unlocode-dev.csv').pipe(locParser);
+        fs.createReadStream(file).pipe(locParser);
       });
 
     locParser

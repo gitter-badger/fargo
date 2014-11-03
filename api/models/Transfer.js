@@ -8,9 +8,9 @@
 module.exports = {
   schema: true,
   attributes: {
-    booking: {model: 'booking', required: true},
+    booking: {model: 'booking'},
     courier: {model: 'client', required: true},
-    items:   {collection: 'transfercargo', via: 'transfer', required: true}
+    cargos:  {collection: 'transfercargo', via: 'transfer', required: true}
   }
 };
 

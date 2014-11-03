@@ -18,7 +18,7 @@ angular.module('fargo')
     };
 
     $scope.submit = function() {
-      Transfer.$create($scope.transfer).$asPromise().then(function() {
+      $scope.booking.transfers.$create($scope.transfer).$asPromise().then(function() {
         $scope.transfer = {
           cargos: []
         };

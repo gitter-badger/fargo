@@ -1,0 +1,7 @@
+.cargo-item(ng-click="toggleSelected()" ng-class="{active: isSelected}")
+  .content
+    strong(ng-bind="cargo.code")
+    span(ng-bind="' ' + cargo.item")
+    br
+    span.producer(ng-bind="cargo.producer")
+    span.quantity(ng-bind="cargo.quantity")

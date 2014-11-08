@@ -1,0 +1,9 @@
+mixin container-form-fields
+  form-group(label="Number")
+    input(ng-required="true" ng-model="edit.number")
+
+  form-group(label="Type")
+    select(ng-required="true" ng-model="edit.type" ng-options="type for type in containerTypes")
+
+  form-group(label="")
+    input(ng-model="edit.temperature")

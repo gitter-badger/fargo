@@ -1,0 +1,17 @@
+.cargo-item
+  .content(ng-click="toggleActions()")
+    strong(ng-bind="cargo.code")
+    span(ng-bind="' ' + cargo.item")
+    br
+    span.producer(ng-bind="cargo.producer")
+    span.quantity(ng-bind="cargo.quantity")
+
+  .cargo-actions(ng-if="showActions")
+    a(ng-click="remove()") x
+    a(ng-click="toggleTrimAction()") /
+
+  form.form-inline(ng-if="showTrimAction", name="trimForm" ng-submit="trim(trimValue)")
+    form-group
+      input(type="text" ng-required="true" ng-model="trimValue")
+    button.btn.btn-default Trim
+    a.btn.btn-link(ng-click="toggleTrimAction()") Cancel

@@ -1,0 +1,77 @@
+
+.container-item
+  display: block;
+  border: 1px solid #d5d5d5;
+  margin-bottom: 16px;
+
+  .header
+    padding: 14px 18px;
+    border-bottom: 1px solid #d5d5d5;
+    font-size: $font-size-base - 1px;
+
+    .header-toggle
+      width: 46px;
+      height: 46px;
+      float: right;
+      margin-top: -14px;
+      margin-right: -18px;
+      border-left: 1px solid #d5d5d5;
+      right: 0;
+      text-align: center;
+      line-height: 45px;
+      cursor: pointer;
+
+      &:hover
+        background: #f7f7f7;
+
+  .footer
+    background: #f7f7f7;
+    border-top: 1px solid #d5d5d5;
+    height: 35px;
+    padding: 10px 18px;
+
+    li
+      float: left;
+      list-style: none;
+
+      + li:before
+        content: "|";
+        margin: 0 10px;
+        color: #BBB;
+
+    .indicator
+      border-radius: 999px;
+      display: inline-block;
+      height: 9px;
+      width: 9px;
+      background: limegreen;
+      margin-right: 3px;
+
+  .inventory
+    margin: -1px;
+    position: relative;
+
+    .add
+      height: 100%;
+      width:  100%;
+      background: rgba(255, 255, 255, 0.8);
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      .label
+        font-weight: 300;
+        position: absolute;
+        font-size: 20px;
+        display: block;
+        width: 100%;
+        margin-top: -20px;
+        top: 50%;
+        text-align: center;
+        color: #99;
+
+
+  .container-form
+    background: #f7f7f7;
+    padding: 20px;
+    border: 1px solid #d5d5d5;

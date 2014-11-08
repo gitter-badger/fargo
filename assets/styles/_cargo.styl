@@ -1,0 +1,77 @@
+.inventory
+  padding: 0;
+  margin:  0;
+  min-height: 68px;
+
+
+.cargo-item
+  display: block;
+  position: relative;
+  cursor: pointer;
+  user-select none;
+  height: 68px;
+  line-height: 1.2;
+  margin-top: -1px;
+
+  &.active .content
+    background: #dff0d8;
+
+  .content
+    background: white;
+    border: 1px solid #d5d5d5;
+    padding: 18px;
+    position: relative;
+
+  .quantity
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    font-size: 14px;
+    height: 15px;
+    font-weight: 600;
+    margin-top: -7px;
+    color: #999;
+
+  .producer
+    //font-weight: 600;
+    font-size: 12px;
+    color: #777;
+
+  .inventory-actions
+    margin-top: 0;
+    background: #f5f5f5;
+
+    .action-label
+      display: block;
+      width: 100%;
+      height: 100%;
+      color: #AAA;
+      font-size: 16px;
+      line-height: 68px;
+      text-align: center;
+      text-transform: uppercase;
+
+  form
+    position: absolute;
+    height: 100%;
+    width:  100%;
+    top: 0;
+    left: 0;
+    padding: 17px 15px;
+
+  .cargo-actions
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    > a
+      display: block;
+      height: 28px;
+      width: 28px;
+      border-radius 999px;
+      line-height: 28px;
+      text-align: center;
+      float: right;
+      background: crimson;
+      color: white;
+      + a
+        margin-right: 3px;

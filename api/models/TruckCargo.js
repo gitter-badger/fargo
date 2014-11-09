@@ -1,5 +1,5 @@
 /**
-* Transfer.js
+* TruckCargo.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -8,9 +8,9 @@
 module.exports = {
   schema: true,
   attributes: {
-    booking: {model: 'booking'},
-    courier: {model: 'client', required: true},
-    cargos:  {collection: 'transfercargo', via: 'transfer', required: true}
+    truck:     {model: 'truck'},
+    quantity:  {type: 'integer', required: true},
+    cargo:     {model: 'cargo', required: true}
   }
 };
 

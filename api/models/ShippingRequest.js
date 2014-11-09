@@ -8,7 +8,8 @@
 module.exports = {
   schema: true,
   attributes: {
+    carrier: {model: 'client',  required: true},
     booking: {model: 'booking', required: true},
-    cargos:  {collection: 'shippingrequestcargo', via: 'request', required: true}
+    request: {type:  'json',    required: true}
   }
 };

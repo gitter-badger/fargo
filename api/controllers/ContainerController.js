@@ -6,6 +6,9 @@
  */
 
 module.exports = {
-	
+
+  find: function(req, res, next) {
+    res.jsonx(['one', 'two']);
+  }
 };
 

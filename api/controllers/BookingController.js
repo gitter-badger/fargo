@@ -5,11 +5,11 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-var findOnePopulated = require('../services/findOnePopulated');
+var blueprints = require('../services/blueprints');
 
 module.exports = {
 
-  // TODO: remove this when sails supports nested associations
-  'findOne': findOnePopulated
+  // TODO: remove this when sails supports nested populate
+  'findOne':  blueprints.findOne,
+  'populate': blueprints.populate
 };
-

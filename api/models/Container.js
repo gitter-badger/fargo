@@ -8,9 +8,9 @@
 module.exports = {
   schema: true,
   attributes: {
+    number:  {type: 'text', required: true},
     booking: {model: 'booking'},
-    type:    {model: 'containertype', required: true},
-    label:   {type: 'text', required: true},
+    type:    {model: 'containertype'},
     cargos:  {collection: 'containercargo', via: 'container'}
   }
 };

@@ -14,7 +14,8 @@ module.exports = {
   autoUpdatedAt: false,
   attributes: {
     code:        {type: 'string', required: true},
-    description: {type: 'string', required: true}
+    description: {type: 'string', required: true},
+    conditions:  {type: 'json'}
   },
 
   'import': function(file, cb) {

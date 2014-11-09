@@ -17,10 +17,11 @@ module.exports = {
     requestedDate:    {type: 'date'},
     notes:            {type: 'string'},
     reference:        {type: 'string'},
+    instructions:     {type: 'json'},
     cargos:           {collection: 'cargo', via: 'booking'},
-    transfers:        {collection: 'transfer', via: 'booking'},
+    trucks:           {collection: 'trucking', via: 'booking'},
     shippingRequests: {collection: 'shippingrequest', via: 'booking'},
-    containers:       {collection: 'container', via: 'booking'},
+    containers:       {collection: 'container', via: 'booking', populate: true},
     logs:             {collection: 'log', via: 'booking'}
   }
 };

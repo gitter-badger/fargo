@@ -23,8 +23,8 @@ module.exports = {
   },
 
   'import': function(file, cb) {
-    var parser  = csv.parse();
-    var tariffs = [];
+    var parser = csv.parse();
+    var commodities = [];
 
     parser
       .on('readable', function () {
@@ -34,7 +34,7 @@ module.exports = {
           length = codes.length;
 
           for(i = 0; i < length; ++i) {
-            tariffs.push({
+            commodities.push({
               description: line[0],
               code: codes[i].trim()
             });
@@ -45,7 +45,7 @@ module.exports = {
         cb(err.message);
       })
       .on('finish', function() {
-        Commodity.create(tariffs, cb);
+        Commodity.create(commodities, cb);
       });
 
     fs.createReadStream(file).pipe(parser);

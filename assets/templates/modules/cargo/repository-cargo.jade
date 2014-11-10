@@ -1,9 +1,10 @@
 .cargo-item
+
   .content(ng-click="toggleActions()")
-    strong(ng-bind="cargo.code")
-    span(ng-bind="' ' + cargo.item")
+    strong(ng-bind="cargo.commodity.code")
+    span(ng-bind="' ' + cargo.description")
     br
-    span.producer(ng-bind="cargo.producer")
+    span.producer(ng-bind="cargo.producer.name")
     span.quantity(ng-bind="cargo.quantity")
 
   .cargo-actions(ng-if="showActions")

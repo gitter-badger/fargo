@@ -1,7 +1,28 @@
-.inventory
+.cargo-repository
   padding: 0;
   margin:  0;
   min-height: 68px;
+  border: 1px solid #d5d5d5;
+  position: relative;
+
+  .overlay
+    height: 100%;
+    width:  100%;
+    background: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    .label
+      font-weight: 300;
+      position: absolute;
+      font-size: 20px;
+      display: block;
+      width: 100%;
+      margin-top: -20px;
+      top: 50%;
+      text-align: center;
+      color: #99;
 
 
 .cargo-item
@@ -11,14 +32,15 @@
   user-select none;
   height: 68px;
   line-height: 1.2;
-  margin-top: -1px;
+
+  + .cargo-item
+    border-top: 1px solid #d5d6d5;
 
   &.active .content
     background: #dff0d8;
 
   .content
     background: white;
-    border: 1px solid #d5d5d5;
     padding: 18px;
     position: relative;
 

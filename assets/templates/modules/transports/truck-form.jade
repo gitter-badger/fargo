@@ -1,0 +1,16 @@
+form.well(ng-submit="submit()")
+
+  form-group(label="truck")
+    input(
+      type="text",
+      ng-model="model.carrier",
+      typeahead="carrier as carrier.name for carrier in carriers($viewValue)",
+      typeahead-wait-ms="100",
+      typeahead-min-length="1",
+      typeahead-editable="false",
+      ng-required="true"
+    )
+
+  cargo-repository(models="model.cargos" ng-show="!edit")
+
+  button.btn.btn-default(ng-bind="submitLabel || 'Send Request'")

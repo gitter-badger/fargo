@@ -3,64 +3,54 @@ angular.module('fargo.cargo', [])
 
   .controller('CargoLoaderController', function($scope) {
 
-    var ctrl = this, loaders = [], staged = [];
-    this.items  = [];
+    var ctrl = this, repos = [], staged = [];
+    this.models = [];
 
-    // internally a copy of the bound items is created so
-    // they can be modified in isolation... the watch subsequently calculates
-    // the quantities on the loader using any loaders
-    $scope.$watch('items', function() {
-      angular.copy($scope.items, ctrl.items);
-      for(var i = 0, len = loaders.length; i < len; ++i) {
-        sync(loaders[i].loaded);
-      }
+    // internally a copy of the bound models is created so
+    // they can be modified in isolation... the watch subsequently applies
+    // the quantities on the loader using any added repos synched with it
+    $scope.$watch('models', function() {
+      angular.copy($scope.models, ctrl.models);
+      repos.forEach(ctrl.syncRepo);
     }, true);
 
-    this.createLoader = function(array) {
-      var loader = new Loader(array);
-      loaders.push(loader);
-      sync(array);
-      return loader;
-    };
+    this.syncRepo = function(repo, oldRepo) {
+      var dupe, model, i = repo.length,
+          index = repos.indexOf(repo);
 
-    this.destroyLoader = function(loader) {
-      for(var i = 0, len = loader.loaded.length; i < len; ++i) {
-        reset(loader.loaded[i]);
+      oldRepo && oldRepo !== repo && this.desyncRepo(oldRepo);
+      index < 0 && repos.push(repo);
+      while(i--) {
+        dupe  = repo[i];
+        model = pluck(ctrl.models, dupe);
+        model.quantity -= dupe.quantity;
       }
-      var index = loaders.indexOf(loader);
-      loaders.splice(index, 1);
     };
 
-    this.distribute = function() {
-      var i, ii, item, target, quantity, excess,
-          selected = staged.length,
-          targets  = loaders.length;
+    this.desyncRepo = function(repo) {
+      var dupe, model, i = repo.length,
+          index = repos.indexOf(repo);
 
-      for(i = 0; i < selected; ++i) {
-        item = staged[i];
-        excess = item.quantity % targets;
-        quantity = Math.floor(item.quantity/targets);
-        for(ii = 0; ii < targets; ++ii) {
-          target = loaders[ii].loaded;
-          ii === targets - 1 && (quantity += excess);
-          assign(item, target, quantity);
-        }
+      index > -1 && repos.splice(index, 1);
+      while(i--) {
+        dupe  = repo[i];
+        model = pluck(ctrl.models, dupe);
+        model.quantity += dupe.quantity;
       }
-      staged = [];
     };
 
-    this.isStaged = function(item) {
-      if(item) {
-        return pluck(staged, item);
+    this.isStaged = function(model) {
+      if(model) {
+        return pluck(staged, model);
       } else return staged.length;
     };
 
-    this.toggleStaging = function(item) {
-      // copy item to be staged so that subsequent operations
+    this.toggleStaging = function(model) {
+      // copy model to be staged so that subsequent operations
       // on its quantity do not influence the original value
-      var i, len, dupe = angular.copy(item);
+      var i = staged.length, dupe = angular.copy(model);
 
-      for(i = 0, len = staged.length; i < len; ++i) {
+      while(i--) {
         if(dupe.id === staged[i].id) {
           return staged.splice(i, 1);
         }
@@ -68,71 +58,63 @@ angular.module('fargo.cargo', [])
       staged.push(dupe);
     };
 
-    function Loader(array) {
-      this.loaded = array;
-    }
+    this.assignStagedTo = function(repo) {
+      var i = staged.length;
 
-    Loader.prototype.load = function() {
-      for (var i = 0, len = staged.length; i < len; ++i) {
-        assign(staged[i], this.loaded);
+      while(i--) {
+        assign(staged[i], repo);
       }
       staged = [];
     };
 
-    Loader.prototype.loadPartial = function(quantity) {
-      assign(staged[0], this.loaded, quantity);
+    this.assignStagedPartiallyTo = function(repo, quantity) {
+      assign(staged[0], repo, quantity);
       staged = [];
     };
 
-    Loader.prototype.unload = reset;
+    $scope.distribute = function() {
+      var i, ii, model, target, quantity, excess,
+        selected = staged.length,
+        targets  = repos.length;
 
-    function assign(stagedItem, array, limit) {
-      console.log(array);
-      var dupe   = angular.copy(stagedItem),
-          item   = pluck(ctrl.items, stagedItem),
-          exists = pluck(array, item);
-      // apply quantity restriction when limit is required
-      angular.isDefined(limit) && (dupe.quantity = Math.min(Number(limit) || 0, item.quantity));
-      // if the staged item exists in the destination array then they are combined by
-      // adding their quantities, otherwise the item is added in its entirety
-      exists ? (exists.quantity += dupe.quantity) : array.push(dupe);
-      // update the original quantity
-      item.quantity -= dupe.quantity;
-    }
-
-    function pluck(array, item) {
-      for(var i = 0, length = array.length; i < length; ++i) {
-        if(item.id === array[i].id) {
-          return array[i];
+      for(i = 0; i < selected; ++i) {
+        model = staged[i];
+        excess = model.quantity % targets;
+        quantity = Math.floor(model.quantity/targets);
+        for(ii = 0; ii < targets; ++ii) {
+          target = repos[ii].cargos;
+          ii === targets - 1 && (quantity += excess);
+          assign(model, target, quantity);
         }
       }
+      staged = [];
+    };
+
+    function assign(stagedModel, dest, limit) {
+      var dupe   = angular.copy(stagedModel),
+          model  = pluck(ctrl.models, stagedModel),
+          exists = pluck(dest, model);
+      // apply quantity restriction when limit is required
+      angular.isDefined(limit) && (dupe.quantity = Math.min(Number(limit) || 0, model.quantity));
+      // if the staged model exists in the destination array then they are combined by
+      // adding their quantities, otherwise the model is added in its entirety
+      exists ? (exists.quantity += dupe.quantity) : dest.push(dupe);
     }
 
-    function reset(dupe, value) {
-      var item = pluck(ctrl.items, dupe);
-      // a passed value denotes we are applying a partial reset
-      value = +value || dupe.quantity;
-      item.quantity += value;
-      dupe.quantity -= value;
-    }
-
-    function sync(array) {
-      var i, dupe, item,
-        length = array.length;
-
-      for (i = 0; i < length; ++i) {
-        dupe = array[i];
-        item = pluck(ctrl.items, dupe);
-        item.quantity -= dupe.quantity;
+    function pluck(src, model) {
+      for(var i = 0, length = src.length; i < length; ++i) {
+        if(model.id === src[i].id) {
+          return src[i];
+        }
       }
     }
   })
 
   .directive('cargoLoader', function() {
     return {
-      restrict: 'E',
+      restrict: 'EA',
       scope: {
-        items: '='
+        models: '='
       },
       transclude: true,
       template: '<div ng-transclude></div>',
@@ -145,15 +127,15 @@ angular.module('fargo.cargo', [])
 
     this.init = function(_loaderCtrl) {
       loaderCtrl = _loaderCtrl;
-      $scope.cargo = loaderCtrl.items;
+      $scope.cargos = loaderCtrl.models;
     };
 
-    this.toggleSelected = function(item) {
-      loaderCtrl.toggleStaging(item);
+    this.toggleSelected = function(model) {
+      loaderCtrl.toggleStaging(model);
     };
 
-    this.isSelected = function(item) {
-      return loaderCtrl.isStaged(item);
+    this.isSelected = function(model) {
+      return loaderCtrl.isStaged(model);
     };
   })
 
@@ -174,9 +156,9 @@ angular.module('fargo.cargo', [])
 
   .directive('cargo', function() {
     return {
-      restrict: 'E',
+      restrict: 'EA',
       scope: {
-        cargo: '=item'
+        cargo: '=model'
       },
       require: '^cargoList',
       templateUrl: 'modules/cargo/cargo.html',
@@ -189,6 +171,123 @@ angular.module('fargo.cargo', [])
         Object.defineProperty(scope, 'isSelected', {
           get: function() {
             return listCtrl.isSelected(scope.cargo);
+          }
+        });
+      }
+    };
+  })
+
+  .controller('CargoRepositoryController', function($scope) {
+
+    var loaderCtrl, unwatch, repo = $scope.cargos;
+
+    this.init = function(_loaderCtrl) {
+      loaderCtrl = _loaderCtrl;
+      // tell the loader to factor this repo's
+      // cargo into its quantity calculations
+      unwatch = $scope.$watch('cargos', function(_new, _old) {
+        loaderCtrl.syncRepo(_new, _old);
+      }, true);
+    };
+
+    this.destroy = function() {
+      loaderCtrl.desyncRepo(repo);
+      unwatch();
+    };
+
+    this.unloadCargo = function(model, value) {
+      value = +value || model.quantity;
+
+      if(!value || value >= model.quantity) {
+        var index = repo.indexOf(model);
+        repo.splice(index, 1);
+      } else {
+        model.quantity -= value;
+      }
+      afterChange();
+    };
+
+    $scope.loadCargo = function() {
+      loaderCtrl.assignStagedTo(repo);
+      afterChange();
+    };
+
+    $scope.loadPartialCargo = function(quantity) {
+      loaderCtrl.assignStagedPartiallyTo(repo, quantity);
+      afterChange();
+      $scope.toggleSplitAction();
+    };
+
+    $scope.toggleSplitAction = function() {
+      $scope.showSplitAction = !$scope.showSplitAction;
+    };
+
+    Object.defineProperty($scope, 'isLoading', {
+      enumerable: true,
+      get: function () {
+        return loaderCtrl.isStaged();
+      }
+    });
+
+    function afterChange() {
+      $scope.onChange && $scope.onChange();
+    }
+  })
+
+  .directive('cargoRepository', function() {
+    return {
+      restrict: 'EA',
+      require: ['cargoRepository', '^cargoLoader'],
+      scope: {
+        cargos:   '=models',
+        onChange: '&'
+      },
+      controller:  'CargoRepositoryController',
+      templateUrl: 'modules/cargo/repository.html',
+      link: function(scope, elem, attrs, ctrls) {
+        var repoCtrl   = ctrls[0],
+            loaderCtrl = ctrls[1];
+        repoCtrl.init(loaderCtrl);
+
+        scope.$on('$destroy', function() {
+          repoCtrl.destroy();
+        });
+      }
+    };
+  })
+
+  .directive('repositoryCargo', function() {
+    return {
+      restrict: 'EA',
+      scope: {
+        cargo: '=model'
+      },
+      templateUrl: 'modules/cargo/repository-cargo.html',
+      require: '^cargoRepository',
+      link: function(scope, elem, attrs, repoCtrl) {
+
+        scope.remove = function() {
+          repoCtrl.unloadCargo(scope.cargo);
+          scope.showActions = false;
+        };
+
+        scope.toggleActions = function() {
+          scope.showActions = !scope.showActions;
+        };
+
+        scope.toggleTrimAction = function() {
+          scope.showTrimAction = !scope.showTrimAction;
+          scope.showActions = false;
+        };
+
+        scope.trim = function(value) {
+          repoCtrl.unloadCargo(scope.cargo, value);
+          scope.showTrimAction = false;
+        };
+
+        Object.defineProperty(scope, 'isSelected', {
+          get: function() {
+            return repoCtrl.selected === scope.cargo;
           }
         });
       }

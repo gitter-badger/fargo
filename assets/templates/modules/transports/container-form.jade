@@ -1,0 +1,14 @@
+
+form(name="containerForm" ng-submit="submit()")
+
+  form-group(label="Number")
+    input(ng-required="true" ng-model="model.number")
+
+  form-group(label="Type")
+    select(ng-required="true" ng-model="model.type" ng-options="type for type in containerTypes")
+
+  form-group(label="")
+    input(ng-model="model.temperature")
+
+  button.btn.btn-default(ng-bind="submitLabel || 'Submit'")
+  a.btn.btn-link(ng-if="cancel",  ng-click="cancel()") Cancel

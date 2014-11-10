@@ -1,12 +1,4 @@
-p(ng-if="!cargo.length") All cargo is loaded, mates!
+p(ng-if="!cargos.length") All cargo is loaded, mates!
 
-.inventory(ng-if="cargo.length")
-  cargo(ng-if="item.quantity", item="item" ng-repeat="item in cargo | orderBy: 'id' track by $index")
-
-  .inventory-actions(ng-if="selected.length")
-    span.action-label(ng-if="!split && selected.length === 1" ng-click="toggleSplit()") Split Cargo
-    span.action-label(ng-if="isMergable()" ng-click="mergeSelected()") Merge Cargo
-
-    form(ng-if="selected.length === 1 && split" ng-submit="splitSelected(splitter.value)")
-      input(placeholder="Enter quantity..." ng-model="splitter.value")
-      button Split
+.inventory(ng-if="cargos.length")
+  cargo(ng-if="cargo.quantity", model="cargo" ng-repeat="cargo in cargos | orderBy: 'id' track by $index")

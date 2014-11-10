@@ -1,0 +1,19 @@
+
+.container-item
+
+  .header
+    span(ng-bind="truck.carrier.name")
+    span.header-toggle(ng-click="toggleEdit()") i
+
+  div(ng-if="edit" name="editTruckForm" ng-submit="update()")
+    a.btn.btn-default(ng-click="destroy()") Delete
+    a.btn.btn-link(ng-click="toggleEdit()") Cancel
+
+  cargo-repository(models="truck.cargos" ng-show="!edit")
+
+  .footer
+    ul
+      li(ng-if="!isDirty") Ordered on 24 September 2014
+      li(ng-if="isDirty")
+        a.btn.btn-default(ng-click="finalize()") Resend Request
+        a.btn.btn-link(ng-click="revertToLastSaved()") Revert

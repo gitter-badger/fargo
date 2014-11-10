@@ -1,0 +1,13 @@
+.cargo-repository
+
+  repository-cargo(model="cargo" ng-repeat="cargo in cargos")
+
+  .overlay(ng-if="isLoading")
+    .label(ng-if="!showSplitAction")
+      span(ng-click="loadCargo()") Add +
+      span(ng-click="toggleSplitAction()") Load Partial
+
+    form(ng-if="showSplitAction" ng-submit="loadPartialCargo(splitValue)")
+      form-group
+        input(type="text" ng-model="splitValue")
+      button.btn.btn-default Load

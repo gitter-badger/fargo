@@ -1,7 +1,7 @@
 p(ng-if="!containers.length") Please add those containers confirmed by the shipping line.
 a(ng-click="loadDistributed()") Distribute!
 
-container(item="container" ng-repeat="container in containers")
+container(model="container" ng-repeat="container in containers")
 
 a(ng-if="!showContainer" ng-click="toggleAddContainer()") Add Container
 

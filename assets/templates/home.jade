@@ -1,1 +1,15 @@
 h1 FARGO!
+
+div(ng-controller='DevCtrl')
+
+  a(ng-click="meddle()") Add an extra codfish!
+
+  cargo-loader(models="cargo")
+    .row
+      .col-xs-4
+        cargo-list
+
+      .col-xs-4
+        truck-form(model="truck", carriers="fn()", submit="addTruck()")
+
+        truck(model="truck", ng-repeat="truck in trucks")

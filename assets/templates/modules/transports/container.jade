@@ -1,0 +1,19 @@
+
+.container-item
+
+  .header
+    span(ng-bind="container.number")
+    strong(ng-bind="container.type")
+    span.header-toggle(ng-click="toggleEdit()") i
+
+  div(ng-if="edit")
+    container-form(model="edit", submit="update()", cancel="toggleEdit()")
+    a(ng-click="onDestroy()") Delete
+
+  cargo-repository(models="container.cargos" ng-show="!edit")
+
+  .footer
+    ul
+      li(ng-if="container.temperature")
+        span.indicator
+        span {{container.temperature}}&deg;C

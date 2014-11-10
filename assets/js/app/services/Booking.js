@@ -1,5 +1,4 @@
 
-
 angular.module('fargo')
 
   .factory('Booking', function(restmod) {

@@ -1,7 +1,7 @@
 
 angular.module('fargo')
 
-  .controller('CargoController', function ($scope, Client, Commodity) {
+  .controller('CargoCtrl', function ($scope, Client, Commodity) {
 
     $scope.cargo = {};
     $scope.types = [

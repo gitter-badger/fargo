@@ -1,7 +1,7 @@
 
 angular.module('fargo')
 
-  .controller('TransferController', function ($scope, Client, Transfer) {
+  .controller('TrucksCtrl', function ($scope, Client, Transfer) {
 
     $scope.transfer = {
       cargos: []

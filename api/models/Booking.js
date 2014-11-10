@@ -9,7 +9,7 @@
 module.exports = {
   schema: true,
   attributes: {
-    reference:        {type: 'string'},
+    ref:              {type: 'string'},
     requestedBy:      {model: 'user',     required: true},
     customer:         {model: 'client',   required: true},
     origin:           {model: 'location', required: true},

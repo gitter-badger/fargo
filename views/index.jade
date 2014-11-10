@@ -15,7 +15,7 @@ html(ng-app="fargo")
 
     // NAVBAR
 
-    .navbar.navbar-default.navbar-fixed-top(ng-controller="NavbarController", role="navigation")
+    .navbar.navbar-default.navbar-fixed-top(ng-controller="NavbarCtrl", role="navigation")
       .container
         .navbar-header
           button.navbar-toggle.collapse(type="button", ng-click="isCollapsed = !isCollapsed")
@@ -77,10 +77,8 @@ html(ng-app="fargo")
     script(src="/js/app/filters/depopulate.js")
     script(src="/js/app/modules/bootstrap.js")
     script(src="/js/app/modules/cargo.js")
-    script(src="/js/app/modules/container.js")
     script(src="/js/app/modules/flash.js")
     script(src="/js/app/modules/transports.js")
-    script(src="/js/app/modules/truck.js")
     script(src="/js/app/services/$socket.js")
     script(src="/js/app/services/Auth.js")
     script(src="/js/app/services/Booking.js")

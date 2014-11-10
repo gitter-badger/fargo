@@ -34,7 +34,7 @@ angular.module('fargo')
     $stateProvider
       .state('users', {
         url: '/users',
-        controller: 'UserIndexController',
+        controller: 'UserIndexCtrl',
         templateUrl: 'users/index.html',
         data: {
           permission: 'admin'
@@ -59,13 +59,13 @@ angular.module('fargo')
       .state('bookings.new', {
         url: '/new',
         templateUrl: 'bookings/new.html',
-        controller: 'BookingController'
+        controller: 'BookingCtrl'
       })
 
       .state('bookings.view', {
         url: '/:id',
         templateUrl: 'bookings/view.html',
-        controller: 'BookingViewController',
+        controller: 'BookingViewCtrl',
         resolve: {
           booking: function($stateParams, Booking) {
             return Booking.$find($stateParams.id).$asPromise();
@@ -80,7 +80,7 @@ angular.module('fargo')
           status:  '',
           message: ''
         },
-        controller: 'ErrorController',
+        controller: 'ErrorCtrl',
         templateUrl: 'error.html',
         data: {
           permission: 'public'

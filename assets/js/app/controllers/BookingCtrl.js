@@ -1,7 +1,7 @@
 
 angular.module('fargo')
 
-  .controller('BookingController', function ($scope, $state, Booking, Client, User, Location) {
+  .controller('BookingCtrl', function ($scope, $state, Booking, Client, User, Location) {
 
     $scope.booking = {};
 

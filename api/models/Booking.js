@@ -9,6 +9,7 @@
 module.exports = {
   schema: true,
   attributes: {
+    reference:        {type: 'string'},
     requestedBy:      {model: 'user',     required: true},
     customer:         {model: 'client',   required: true},
     origin:           {model: 'location', required: true},
@@ -16,12 +17,13 @@ module.exports = {
     departureDate:    {type: 'date',      required: true},
     requestedDate:    {type: 'date'},
     notes:            {type: 'string'},
-    reference:        {type: 'string'},
+    customerRef:      {type: 'string'},
+    shippingRef:      {type: 'string'},
     instructions:     {type: 'json'},
     cargos:           {collection: 'cargo', via: 'booking'},
-    trucks:           {collection: 'trucking', via: 'booking'},
+    trucks:           {collection: 'truck', via: 'booking'},
     shippingRequests: {collection: 'shippingrequest', via: 'booking'},
-    containers:       {collection: 'container', via: 'booking', populate: true},
+    containers:       {collection: 'container', via: 'booking'},
     logs:             {collection: 'log', via: 'booking'}
   }
 };

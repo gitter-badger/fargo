@@ -12,11 +12,11 @@ module.exports = {
   autoCreatedAt: false,
   autoUpdatedAt: false,
   attributes: {
-    name:   {index: true, required: true},
-    locode: {index: true, required: true},
+    name:   {index: true},
+    locode: {index: true},
     toJSON: function() {
       var obj = this.toObject();
-      obj.displayName = this.locode + ' | ' + this.name;
+      obj.displayName = this.locode + ' | ' + this.name + ', ' + this.country;
       return obj;
     }
   },
@@ -71,7 +71,7 @@ module.exports = {
           if (isPort || isRoad) {
             locations.push({
               isocode: isocode,
-              locode:  isocode + ' ' + place,
+              locode:  isocode + place,
               name:    name,
               country: countries[isocode],
               port:    isPort,

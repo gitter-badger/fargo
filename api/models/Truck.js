@@ -11,6 +11,7 @@ module.exports = {
     carrier:   {model: 'client'},
     container: {model: 'container'}, // for FCL
     booking:   {model: 'booking'},
-    cargos:    {collection: 'truckcargo', owner: 'truck'}
+    cargos:    {collection: 'truckcargo', owner: 'truck'},
+    sent:      {type: 'json'}
   }
 };

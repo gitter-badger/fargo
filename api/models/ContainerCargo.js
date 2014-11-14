@@ -8,9 +8,9 @@
 module.exports = {
   schema: true,
   attributes: {
-    container: {model: 'container', required: true},
+    container: {model: 'container'},
+    cargo:     {model: 'cargo'},
     quantity:  {type: 'integer', required: true},
-    cargo:     {model: 'cargo', required: true}
+    weight:    {type: 'integer', required: true}
   }
 };
-

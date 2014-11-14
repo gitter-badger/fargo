@@ -22,6 +22,7 @@ module.exports = {
     instructions:     {type: 'json'},
     cargos:           {collection: 'cargo', via: 'booking'},
     trucks:           {collection: 'truck', via: 'booking'},
+    voyages:          {collection: 'voyage', via: 'booking'},
     shippingRequests: {collection: 'shippingrequest', via: 'booking'},
     containers:       {collection: 'container', via: 'booking'},
     logs:             {collection: 'log', via: 'booking'}

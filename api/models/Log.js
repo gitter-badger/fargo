@@ -5,12 +5,16 @@
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 
-var logTypes = [];
+var logTypes = {
+  bookingCreated: 0
+};
 
 module.exports = {
   schema: true,
   attributes: {
-    booking: {model: 'booking', required: true},
-    action:  {type: 'string', enum: logTypes, required: true}
-  }
+    booking: {model: 'booking'},
+    author:  {model: 'user'},
+    action:  {type: 'integer', enum: Object.keys(_.invert(logTypes)), index: true}
+  },
+  actions: logTypes
 };

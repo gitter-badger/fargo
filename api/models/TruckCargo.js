@@ -8,9 +8,10 @@
 module.exports = {
   schema: true,
   attributes: {
-    truck:     {model: 'truck'},
-    quantity:  {type: 'integer', required: true},
-    cargo:     {model: 'cargo', required: true}
+    truck:    {model: 'truck'},
+    cargo:    {model: 'cargo'},
+    quantity: {type: 'integer', required: true},
+    weight:   {type: 'integer', required: true}
   }
 };
 

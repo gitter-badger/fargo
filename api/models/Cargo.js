@@ -10,8 +10,8 @@ module.exports = {
   schema: true,
   attributes: {
     booking:     {model: 'booking'},
-    producer:    {model: 'client',    required: true},
-    commodity:   {model: 'commodity', required: true},
+    producer:    {model: 'client'},
+    commodity:   {model: 'commodity'},
     type:        {type:  'string',    required: true},
     quantity:    {type:  'integer',   required: true},
     description: {type:  'string',    required: true},

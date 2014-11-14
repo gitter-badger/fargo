@@ -13,8 +13,8 @@ module.exports = {
   autoCreatedAt: false,
   autoUpdatedAt: false,
   attributes: {
-    code:        {type: 'string', required: true},
-    description: {type: 'string', required: true},
+    code:        {type: 'string', required: true, index: true},
+    description: {type: 'string', required: true, index: true},
     conditions:  {type: 'json'}
   },
 

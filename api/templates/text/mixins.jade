@@ -1,0 +1,37 @@
+- bodyWidth = 80
+- col1 = 67
+- col2 = 12
+
+
+mixin h1
+  +hr
+  block
+  +hr
+  +br
+
+
+mixin p
+  block
+  = "\n\n"
+
+
+mixin br
+  = "\r\n"
+
+
+mixin hr
+  +br
+  - divider = new Array(bodyWidth + 1).join('-')
+  | #{divider}
+  +br
+
+
+mixin label(text)
+  - var width = 15, padding = 0;
+  if(text.length >= width)
+    - text = text.substring(0, width - 3) + '...';
+  else
+    - padding = new Array(width - text.length + 1).join(' ');
+  | #{text}:#{padding}#{' '}
+
+
